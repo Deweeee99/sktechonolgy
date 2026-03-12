@@ -85,19 +85,10 @@
                                         <div class="col-sm-12">
                                             <div class="main-about fl-wrap">
                                                 <h2>Innovative solutions to boost <br><span> your creative </span>  projects</h2>
-                                                <p>SK Technology is a technology solutions company specializing in end-to-end IT services, from strategic planning and system development to large-scale national implementation.
-
-We operate with a security-first mindset, scalable architecture, and future-ready technology frameworks, enabling organizations to grow, adapt, and operate efficiently in a digital-first environment.
-<br><br>
-<b>Our Vision</b>
-<br>
-To become a trusted technology partner driving innovation, efficiency, and sustainable digital growth.
-<br>
-<b>Our Mission</b>
-<br>
-To deliver secure, scalable, and innovative IT solutions by combining technical expertise, industry best practices, and a client-focused approach—helping organizations simplify technology and achieve measurable results.</p>
                                                 
-                                               
+                                                <!-- Ini akan memanggil teks dinamis dari database -->
+                                                {!! $page->content !!}
+                                                
                                             </div>
                                         </div>
                                     </div>

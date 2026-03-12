@@ -10,8 +10,10 @@
                 </div>
                 <div class="contact-details fl-wrap">
                    <ul>
-                      <li><span>01. Mail :</span><a href="mailto:info@sktechnology.com" target="_blank">info@sktechnology.com</a></li>
-                      <li><span>02. Address :</span><a href="#" target="_blank">Dili Timor Leste</a></li>
+                      <!-- Email Dinamis -->
+                      <li><span>01. Mail :</span><a href="mailto:{{ $contact->email }}" target="_blank">{{ $contact->email }}</a></li>
+                      <!-- Address Dinamis -->
+                      <li><span>02. Address :</span><a href="#" target="_blank">{{ $contact->address }}</a></li>
                    </ul>
                 </div>
                 <a href="#" class="btn fl-btn color-bg show_contact-form"><span>Say Hello</span></a> 
@@ -46,16 +48,17 @@
        </div>
        
        <div class="map-container">
-          <div id="map-single" class="map" data-latlog="[-8.556, 125.560]" data-popuptext="SK Technology Dili, Timor Leste."></div>
+          <!-- Koordinat Map & Popup Text Dinamis -->
+          <div id="map-single" class="map" data-latlog="[{{ $contact->map_lat }}, {{ $contact->map_lng }}]" data-popuptext="{{ $contact->map_popup }}"></div>
        </div>
 
        <div class="main_social">
-          <span class="main-social-title">Find on:</span>
-          <ul>
-             <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-             <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-             <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-          </ul>
-       </div>
+         <span class="main-social-title">Find on:</span>
+         <ul>
+            <li><a href="{{ $contact->facebook ?? '#' }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="{{ $contact->instagram ?? '#' }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="{{ $contact->twitter ?? '#' }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+         </ul>
+      </div>
     </div>
 @endsection

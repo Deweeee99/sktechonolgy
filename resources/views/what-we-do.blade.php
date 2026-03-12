@@ -74,80 +74,28 @@
                                     <div class="section-title">
                                         <h3>Services Provided</h3>
                                     </div>
+
+                                    <!-- Teks Dinamis dipasang di sini -->
+                                    <div class="fl-wrap" style="margin-bottom: 30px;">
+                                        {!! $page->content !!}
+                                    </div>
+
                                     <div class="process-wrap fl-wrap">
                                         <div class="row">
-                                            <div class=" col-sm-6">
+                                            <!-- Looping Data Layanan / Services -->
+                                            @foreach($services as $service)
+                                            <div class="col-sm-6">
                                                 <div class="process-details">
                                                     <span class="pd-icon">
-                                                    <i class="fal fa-desktop"></i>
+                                                        <i class="{{ $service->icon }}"></i>
                                                     </span>
-                                                    <h4>IT Consulting</h4>
+                                                    <h4>{{ $service->title }}</h4>
                                                     <div class="clearfix"></div>
-                                                    <p>We analyze business and operational needs to design practical, results-oriented digital transformation roadmaps.</p>
-                                                    <span class="process-numder">01.</span>
-                                                    
+                                                    <p>{{ $service->description }}</p>
+                                                    <span class="process-numder">{{ $service->order_number }}</span>
                                                 </div>
                                             </div>
-                                            <div class=" col-sm-6">
-                                                <div class="process-details">
-                                                    <span class="pd-icon">
-                                                    <i class="fab fa-pagelines"></i>
-                                                    </span>
-                                                    <h4>Software Development</h4>
-                                                    <div class="clearfix"></div>
-                                                    <p>Custom-built applications and platforms designed for scalability, performance, and long-term sustainability.</p>
-                                                    <span class="process-numder">02.</span>
-                                                   
-                                                </div>
-                                            </div>
-                                            <div class=" col-sm-6">
-                                                <div class="process-details">
-                                                    <span class="pd-icon">
-                                                    <i class="fal fa-mobile-android"></i>
-                                                    </span>
-                                                    <h4>Network Solutions</h4>
-                                                    <div class="clearfix"></div>
-                                                    <p>Reliable and secure network infrastructure to support seamless business and government operations.</p>
-                                                    <span class="process-numder">03.</span>
-                                                   
-                                                </div>
-                                            </div>
-                                            <div class=" col-sm-6">
-                                                <div class="process-details">
-                                                    <span class="pd-icon">
-                                                    <i class="fal fa-camera-alt"></i>
-                                                    </span>
-                                                    <h4>Cloud Services</h4>
-                                                    <div class="clearfix"></div>
-                                                    <p>Private and hybrid cloud solutions that enhance flexibility, system performance, and operational efficiency.</p>
-                                                    <span class="process-numder">04.</span>
-                                                   
-                                                </div>
-                                            </div>
-
-                                             <div class=" col-sm-6">
-                                                <div class="process-details">
-                                                    <span class="pd-icon">
-                                                    <i class="fal fa-camera-alt"></i>
-                                                    </span>
-                                                    <h4>Cyber Security</h4>
-                                                    <div class="clearfix"></div>
-                                                    <p>PComprehensive security frameworks to protect systems, infrastructure, and sensitive data from evolving cyber threats.</p>
-                                                    <span class="process-numder">05.</span>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class=" col-sm-6">
-                                                <div class="process-details">
-                                                    <span class="pd-icon">
-                                                    <i class="fal fa-camera-alt"></i>
-                                                    </span>
-                                                    <h4>Data Center & IDC</h4>
-                                                    <div class="clearfix"></div>
-                                                    <p>Design, implementation, and management of scalable Internet Data Center (IDC) environments.</p>
-                                                    <span class="process-numder">06.</span>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     </div>

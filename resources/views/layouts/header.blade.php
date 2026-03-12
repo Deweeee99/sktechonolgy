@@ -1,3 +1,8 @@
+@php
+    $globalContact = \App\Models\Contact::first() ?? (object)[
+        'email' => 'info@sktechnology.com'
+    ];
+@endphp
 <div id="main">
             <header class="main-header">
                 <a href="{{ url('/') }}" class="ajax logo-holder"><img src="{{ asset('images/SK Color 93x44.png') }}" alt="SK Technology"></a>
@@ -9,17 +14,11 @@
                 </div>
                 <div class="header-contacts">
                     @if (request()->is('company-overview'))
-                      <nav class="scroll-init page-scroll-nav_wrap">
-                            <ul class="no-list-style init_hidden_filter">
-                                <li><a class="scroll-link fbgs act-sec" href="#sec1" data-bgtext="01"><span>About</span></a></li>
-                               
-                              
-                                <li><a class="scroll-link fbgs" href="#sec5" data-bgtext="05"><span>Clients</span></a></li>
-                            </ul>
+                        <nav class="scroll-init page-scroll-nav_wrap">
+                            </nav>
                     @else
-                    
                     <ul>
-                        <li><span>01. Write </span> <a href="mailto:info@sktechnology.com">info@sktechnology.com</a></li>
+                        <li><span>01. Write </span> <a href="mailto:{{ $globalContact->email }}">{{ $globalContact->email }}</a></li>
                     </ul>
                     @endif
                     <a href="{{ url('/contacts') }}" class="ajax contacts-btn">Get in touch</a>
