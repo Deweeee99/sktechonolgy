@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>SK </b>Technology',
     'logo_img' => 'images/favicon.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
