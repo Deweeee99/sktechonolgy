@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <p>Selamat datang di Admin Panel pertama Anda!</p>
+            <p>Welcome to SK Technology's admin panel</p>
         </div>
     </div>
 @stop
@@ -19,5 +19,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Halaman admin dimuat!'); </script>
+    <script> console.log('Dashboard Admin loaded!'); </script>
 @stop
