@@ -1,6 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        // Filter relasi galleries berdasarkan tipe
+        $bgGallery = isset($page) ? $page->galleries->where('type', 'background')->first() : null;
+        $sliderGalleries = isset($page) ? $page->galleries->where('type', 'slider') : collect([]);
+        
+        // Atur default image jika admin belum mengupload background
+        $bgImg = asset('images/bg/festival.jpg'); 
+        if ($bgGallery) {
+            $bgImg = str_starts_with($bgGallery->image, 'images/') ? asset($bgGallery->image) : asset('storage/' . $bgGallery->image);
+        }
+    @endphp
+
 <div class="content" data-pagetitle="Timor Leste Branch">
     
     <div class="hero-section-dec color-bg">
@@ -20,11 +32,31 @@
         <div class="pr-bg"></div>
         <div class="fixed-column-wrap-content">
             
-            <!-- Dinamis Background Image -->
-            @php
-                $bgImg = asset('images/bg/festival.jpg'); // Default fallback
-            @endphp
-            <div class="bg" data-bg="{{ $bgImg }}"></div>
+            <!-- Slideshow Background Dinamis -->
+            <div class="slideshow-container">
+                <div class="slideshow-container_wrap fl-wrap full-height">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <!-- Background Image Dinamis diaplikasikan ke semua slide -->
+                            <div class="swiper-slide">
+                                <div class="ms-item_fs fl-wrap">
+                                    <div class="bg par-elem"  data-bg="{{ $bgImg }}"  ></div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide ">
+                                <div class="ms-item_fs fl-wrap">
+                                    <div class="bg par-elem"  data-bg="{{ $bgImg }}"></div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="ms-item_fs fl-wrap">
+                                    <div class="bg par-elem"  data-bg="{{ $bgImg }}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="overlay"></div>
             
             <div class="progress-bar-wrap bot-element">
@@ -55,9 +87,9 @@
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper lightgallery">
                                         
-                                        @if(isset($page) && $page->galleries && $page->galleries->count() > 0)
-                                            <!-- Jika Admin sudah upload foto di Gallery -->
-                                            @foreach($page->galleries as $gallery)
+                                        @if($sliderGalleries->count() > 0)
+                                            <!-- Jika Admin sudah upload foto di Gallery Slider -->
+                                            @foreach($sliderGalleries as $gallery)
                                             <div class="swiper-slide hov_zoom">
                                                 <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery Image">
                                                 <a href="{{ asset('storage/' . $gallery->image) }}" class="box-media-zoom popup-image"><i class="fal fa-search"></i></a>

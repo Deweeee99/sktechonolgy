@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageGallery extends Model
 {
-    protected $fillable = ['page_id', 'image'];
+    protected $fillable = ['page_id', 'type', 'image'];
 
     public function page()
     {

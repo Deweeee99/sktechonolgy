@@ -27,19 +27,25 @@
                    <h2>Get in Touch</h2>
                 </div>
                 <div id="contact-form" class="fl-wrap">
-                   <div id="message"></div>
-                   <form class="custom-form" action="#" name="contactform" id="contactform">
+                   @if(session('success'))
+                       <div style="background: #28a745; color: #fff; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+                           {{ session('success') }}
+                       </div>
+                   @endif
+
+                   <form class="custom-form" action="{{ url('/contacts/send') }}" method="POST">
+                      @csrf
                       <fieldset>
                          <div class="row">
                             <div class="col-sm-6">
-                               <input type="text" name="name" id="name" placeholder="Your Name *" value=""/>
+                               <input type="text" name="name" placeholder="Your Name *" required />
                             </div>
                             <div class="col-sm-6">
-                               <input type="text" name="email" id="email" placeholder="Email Address *" value=""/>
+                               <input type="email" name="email" placeholder="Email Address *" required />
                             </div>
                          </div>
-                         <textarea name="comments" id="comments" cols="40" rows="3" placeholder="Your Message:" class="cnt-anim"></textarea>
-                         <button class="btn fl-btn color-bg" id="submit"><span>Send Message</span> </button>
+                         <textarea name="comments" cols="40" rows="3" placeholder="Your Message:" class="cnt-anim" required></textarea>
+                         <button type="submit" class="btn fl-btn color-bg"><span>Send Message</span></button>
                       </fieldset>
                    </form>
                 </div>

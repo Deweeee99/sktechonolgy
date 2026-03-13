@@ -21,6 +21,12 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+    @php
+        // Filter foto berdasarkan tipe untuk ditampilkan di form yang tepat
+        $bgGallery = $page->galleries->where('type', 'background')->first();
+        $sliderGalleries = $page->galleries->where('type', 'slider');
+    @endphp
+
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Content Editor</h3>
@@ -32,7 +38,28 @@
             @method('PUT')
             <div class="card-body">
                 
-                <!-- 1. Form Upload Multiple Image (Untuk Carousel/Gallery Single Slider) -->
+                <!-- 1. Form Upload Single Image (Untuk Background) -->
+                <div class="form-group mb-4">
+                    <label>Featured / Background Image</label>
+                    <input type="file" name="image" class="form-control" id="imageInput">
+                    <small class="text-muted">Leave blank if you don't want to change the current image.</small>
+                    
+                    @php
+                        $bgImg = asset('images/bg/festival.jpg'); // Default fallback
+                        if ($bgGallery) {
+                            $bgImg = str_starts_with($bgGallery->image, 'images/') ? asset($bgGallery->image) : asset('storage/' . $bgGallery->image);
+                        }
+                    @endphp
+                    <br>
+                    <img id="imagePreview" src="{{ $bgImg }}" alt="Current Image" style="max-width: 250px; margin-top: 10px; border-radius: 5px;">
+                    
+                    @if(!$bgGallery)
+                        <br>
+                        <span class="badge badge-secondary mt-2">Default Background</span>
+                    @endif
+                </div>
+
+                <!-- 2. Form Upload Multiple Image (Untuk Carousel/Gallery Single Slider) -->
                 @if($page->slug == 'timor-leste')
                 <div class="form-group mb-4 p-3" style="border: 1px dashed #ccc; border-radius: 5px; background-color: #f9f9f9;">
                     <label>Content Slider Gallery (Carousel Images)</label>
@@ -46,9 +73,9 @@
                     
                     <label class="mt-4">Images Currently Displayed on Website:</label>
                     <div class="row mt-2">
-                        <!-- Menampilkan foto gallery yang sudah diupload ke database -->
-                        @if($page->galleries && $page->galleries->count() > 0)
-                            @foreach($page->galleries as $gallery)
+                        <!-- Menampilkan foto gallery yang sudah diupload ke database (Hanya tipe 'slider') -->
+                        @if($sliderGalleries && $sliderGalleries->count() > 0)
+                            @foreach($sliderGalleries as $gallery)
                                 <div class="col-md-2 col-sm-4 gallery-item text-center">
                                     <img src="{{ asset('storage/' . $gallery->image) }}" alt="Carousel Image">
                                     
@@ -74,7 +101,7 @@
                 <hr>
                 @endif
 
-                <!-- 2. Form Summernote (Untuk Teks) -->
+                <!-- 3. Form Summernote (Untuk Teks) -->
                 <div class="form-group">
                     <label>Page Content</label>
                     <textarea name="content" id="summernote" class="form-control">{{ $page->content }}</textarea>
@@ -117,6 +144,16 @@
                     ['insert', ['link', 'picture', 'video']], // Ditambahkan fitur video jika diperlukan
                     ['view', ['fullscreen', 'codeview', 'help']]
                 ]
+            });
+
+            // Script untuk Preview Background Image Utama
+            $('#imageInput').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = URL.createObjectURL(file);
+                    preview.style.display = 'block';
+                }
             });
 
             // Script untuk Preview Multiple Gallery Images yang baru dipilih

@@ -16,7 +16,6 @@
                                     <h1><span>{!! $slider->big_text !!}</span><br> </h1>
                                     <h4>{{ $slider->small_text_bottom }}</h4>
                                     <div class="clearfix"></div>
-                                    <a href="{{ url('portfolio') }}" class="btn ajax fl-btn color-bg"><span>My portfolio</span></a>
                                 </div>
                             </div>
                             @endforeach
@@ -30,6 +29,7 @@
                         @foreach($sliders as $slider)
                         <div class="swiper-slide">
                             @php
+                                // Sistem Background Image dikembalikan ke versi awal
                                 $bgImage = str_starts_with($slider->image, 'images/') 
                                             ? asset($slider->image) 
                                             : asset('storage/' . $slider->image);
@@ -62,10 +62,27 @@
                 <div class="hsc hsc-prev"><span><i class="fal fa-angle-left"></i></span> </div>
                 <div class="hsc hsc-next"><span><i class="fal fa-angle-right"></i></span></div>
             </div>
-            <a href="about.html" class="ajax start-btn"><span> Start explore <i class="fal fa-long-arrow-right"></i></span></a>
+            
+            <!-- Update Href: Mengarah ke halaman Company Overview -->
+            <a href="{{ url('/company-overview') }}" class="ajax start-btn"><span> Start explore <i class="fal fa-long-arrow-right"></i></span></a>
+            
             <div class="play-pause_slider hsc_pp auto_actslider"><i class="fas fa-play"></i></div>
         </div>
-        <div class="hero-decor-numb"><span>40.7143528  </span><span>-74.0059731 </span> <a href="https://www.google.com.ua/maps/" target="_blank" class="hero-decor-numb-tooltip">Based In NewYork</a></div>
+        
+        <!-- Update Href & Teks: Mengambil data koordinat & alamat dinamis dari tabel Contact -->
+        @php
+            $globalContact = \App\Models\Contact::first() ?? (object)[
+                'map_lat' => '-8.556',
+                'map_lng' => '125.560',
+                'address' => 'Timor Leste'
+            ];
+        @endphp
+        <div class="hero-decor-numb">
+            <span>{{ $globalContact->map_lat }}  </span>
+            <span>{{ $globalContact->map_lng }} </span> 
+            <a href="{{ url('/contacts') }}" class="ajax hero-decor-numb-tooltip">Based in {{ $globalContact->address }}</a>
+        </div>
+        
         <div class="hero-slider-wrap_pagination"></div>
         <div class="hero-scroll-down-notifer">
             <div class="scroll-down-wrap ">

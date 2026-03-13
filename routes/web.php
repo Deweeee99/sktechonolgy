@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\AuthController;
 use App\Models\Contact;
 use App\Models\Page;
@@ -36,6 +37,7 @@ Route::get('/contacts', function() {
 
     return view('contacts', compact('contact'));
 });
+Route::post('/contacts/send', [MessageController::class, 'sendMessage']);
 Route::prefix('admin')->group(function(){
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -69,6 +71,10 @@ Route::prefix('admin')->group(function(){
 
         Route::get('/contacts', [App\Http\Controllers\Admin\ContactController::class, 'index']);
         Route::post('/contacts', [App\Http\Controllers\Admin\ContactController::class, 'update']);
+
+        Route::get('/messages', [App\Http\Controllers\Admin\MessageController::class, 'index']);
+        Route::get('/messages/{id}', [App\Http\Controllers\Admin\MessageController::class, 'show']);
+        Route::delete('/messages/{id}', [App\Http\Controllers\Admin\MessageController::class, 'destroy']);
 
         // Proses Logout (AdminLTE menggunakan method POST untuk keamanan)
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

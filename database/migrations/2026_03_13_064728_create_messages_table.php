@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('page_galleries', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('page_id')->constrained()->onDelete('cascade'); 
-            $table->string('type')->default('slider'); // Tambahkan kolom ini ('background' atau 'slider')
-            $table->string('image'); 
+            $table->string('name');
+            $table->string('email');
+            $table->text('content');
+            $table->boolean('is_read')->default(false); // Default: 0 (Belum dibaca)
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('page_galleries');
+        Schema::dropIfExists('messages');
     }
 };

@@ -336,6 +336,11 @@ return [
             'url'  => 'admin/contacts',
             'icon' => 'fas fa-fw fa-envelope',
         ],
+        [
+            'text' => 'Inbox Messages',
+            'url'  => 'admin/messages',
+            'icon' => 'fas fa-fw fa-envelope',
+        ],
     ],
 
     /*
